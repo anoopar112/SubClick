@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SubClick Subtitle Translator</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <img src="../../icons/icon48.png" alt="SubClick" class="brand-icon" />
+        <div>
+          <h1 class="brand-title">SubClick</h1>
+          <p class="brand-sub">YouTube &amp; Netflix Subtitle Translator</p>
+        </div>
+      </div>
+      <label class="switch" title="Enable or disable SubClick">
+        <input type="checkbox" id="toggle-enabled" checked />
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab is-active" data-tab="settings" role="tab" aria-selected="true">
+        Settings
+      </button>
+      <button type="button" class="tab" data-tab="vocab" role="tab" aria-selected="false">
+        Vocabulary <span id="vocab-count" class="badge">0</span>
+      </button>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <section id="panel-settings" class="panel" role="tabpanel">
+      <div class="field-group">
+        <label class="field-label" for="select-target-lang">Translate words into</label>
+        <select id="select-target-lang" class="select"></select>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="select-source-lang">Subtitle language</label>
+        <select id="select-source-lang" class="select"></select>
+      </div>
+
+      <div class="field-group">
+        <span class="field-label">Subtitle size</span>
+        <div class="size-pills" id="size-selector">
+          <button type="button" class="size-pill" data-size="small">S</button>
+          <button type="button" class="size-pill is-active" data-size="medium">M</button>
+          <button type="button" class="size-pill" data-size="large">L</button>
+          <button type="button" class="size-pill" data-size="xlarge">XL</button>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="toggle-list">
+        <label class="toggle-row">
+          <div>
+            <div class="toggle-title">Auto-pause video on click</div>
+            <div class="toggle-desc">Pauses playback when you click a subtitle word</div>
+          </div>
+          <input type="checkbox" id="toggle-autopause" class="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <div>
+            <div class="toggle-title">Auto-resume on close</div>
+            <div class="toggle-desc">Resumes video when closing the translation popup</div>
+          </div>
+          <input type="checkbox" id="toggle-autoresume" class="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <div>
+            <div class="toggle-title">Full sentence translation</div>
+            <div class="toggle-desc">Shows the entire subtitle line translated below</div>
+          </div>
+          <input type="checkbox" id="toggle-sentence" class="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <div>
+            <div class="toggle-title">Preload subtitles (instant clicks)</div>
+            <div class="toggle-desc">Batch-preloads each subtitle line &amp; caches words locally</div>
+          </div>
+          <input type="checkbox" id="toggle-preload" class="checkbox" checked />
+        </label>
+
+        <label class="toggle-row">
+          <div>
+            <div class="toggle-title">Auto-save clicked words</div>
+            <div class="toggle-desc">Automatically adds looked-up words to Vocabulary</div>
+          </div>
+          <input type="checkbox" id="toggle-autosave" class="checkbox" checked />
+        </label>
+      </div>
+
+      <div class="hint-card">
+        Make sure closed captions (<strong>CC</strong>) or subtitles are turned on in the YouTube or Netflix player, then click any subtitle word.
+      </div>
+    </section>
+
+    <!-- VOCABULARY PANEL -->
+    <section id="panel-vocab" class="panel" role="tabpanel" hidden>
+      <div class="vocab-toolbar">
+        <input
+          type="search"
+          id="vocab-search"
+          class="search-input"
+          placeholder="Search words, meanings, or videos…"
+        />
+        <div class="vocab-actions">
+          <button type="button" id="btn-export-csv" class="btn-secondary" title="Export as CSV (Excel / Anki)">
+            Export CSV
+          </button>
+          <button type="button" id="btn-export-json" class="btn-secondary" title="Export as JSON">
+            Export JSON
+          </button>
+          <button type="button" id="btn-clear-vocab" class="btn-danger">
+            Clear All
+          </button>
+        </div>
+      </div>
+
+      <div id="vocab-list" class="vocab-list"></div>
+    </section>
+  </div>
+
+  <script src="../shared/constants.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

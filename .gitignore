@@ -1,0 +1,10 @@
+# Build artifacts
+dist/
+
+# macOS / OS metadata
+.DS_Store
+Thumbs.db
+
+# Editor & Node artifacts
+node_modules/
+*.log

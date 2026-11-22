@@ -1,0 +1,381 @@
+/* Hide native captions ONLY while SubClick is actively rendering text */
+.subclick-native-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.subclick-root {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483645;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+.subclick-subtitle-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 86%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transition: bottom 0.18s ease;
+}
+
+/* Lift subtitles slightly when YouTube bottom controls are visible */
+.html5-video-player:not(.ytp-autohide) .subclick-subtitle-wrap {
+  bottom: 13.5%;
+}
+
+/* Netflix comfortable clearance above scrubber */
+.watch-video .subclick-subtitle-wrap,
+[data-uia="player"] .subclick-subtitle-wrap {
+  bottom: 11%;
+}
+
+.subclick-subtitle-box {
+  pointer-events: auto;
+  user-select: none;
+  background: rgba(10, 12, 20, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 8px 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  text-align: center;
+  color: #f8fafc;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+.subclick-subtitle-box:empty {
+  display: none;
+}
+
+/* Responsive subtitle font sizes controlled from popup settings */
+.subclick-root[data-size="small"] .subclick-subtitle-box {
+  font-size: clamp(14px, 1.7vw, 20px);
+}
+.subclick-root[data-size="medium"] .subclick-subtitle-box {
+  font-size: clamp(16px, 2.2vw, 26px);
+}
+.subclick-root[data-size="large"] .subclick-subtitle-box {
+  font-size: clamp(19px, 2.7vw, 32px);
+}
+.subclick-root[data-size="xlarge"] .subclick-subtitle-box {
+  font-size: clamp(22px, 3.3vw, 40px);
+}
+
+.subclick-line {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.subclick-line + .subclick-line {
+  margin-top: 3px;
+}
+
+.subclick-word {
+  display: inline-block;
+  padding: 1px 4px;
+  margin: 0 -1px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: 500;
+  transition: background-color 0.12s ease, color 0.12s ease, transform 0.1s ease;
+}
+
+.subclick-word:hover,
+.subclick-word:focus-visible {
+  background: rgba(250, 204, 21, 0.24);
+  color: #fde047;
+  outline: none;
+}
+
+.subclick-word.subclick-word--active {
+  background: rgba(250, 204, 21, 0.34);
+  color: #fde047;
+  box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.55);
+}
+
+/* Floating Translation Popover Card */
+.subclick-tooltip {
+  position: absolute;
+  pointer-events: auto;
+  user-select: text;
+  width: 340px;
+  max-width: calc(100% - 24px);
+  background: rgba(15, 18, 30, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #f1f5f9;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  z-index: 2147483647;
+  animation: subclickFadeIn 0.14s ease-out;
+}
+
+.subclick-tooltip[hidden] {
+  display: none !important;
+}
+
+@keyframes subclickFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.subclick-tip-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.subclick-tip-word-group {
+  min-width: 0;
+  flex: 1;
+}
+
+.subclick-tip-source-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.subclick-tip-word {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fde047;
+  word-break: break-word;
+}
+
+.subclick-tip-lang-badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.25);
+  color: #a5b4fc;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.subclick-tip-roman {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.subclick-tip-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.subclick-btn-save {
+  appearance: none;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(30, 41, 59, 0.8);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.subclick-btn-save:hover {
+  background: rgba(51, 65, 85, 0.95);
+  color: #ffffff;
+}
+
+.subclick-btn-save.is-saved {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(52, 211, 153, 0.45);
+  color: #6ee7b7;
+}
+
+.subclick-btn-close {
+  appearance: none;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 16px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.subclick-btn-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.subclick-tip-main-trans {
+  margin-top: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  word-break: break-word;
+}
+
+.subclick-tip-loading {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subclick-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(148, 163, 184, 0.3);
+  border-top-color: #818cf8;
+  border-radius: 50%;
+  animation: subclickSpin 0.65s linear infinite;
+}
+
+@keyframes subclickSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.subclick-tip-error {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.subclick-btn-retry {
+  align-self: flex-start;
+  appearance: none;
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.subclick-btn-retry:hover {
+  background: rgba(239, 68, 68, 0.38);
+  color: #ffffff;
+}
+
+.subclick-tip-sentence-pending {
+  font-size: 12px;
+  color: #64748b;
+  font-style: italic;
+}
+
+.subclick-tip-dict {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subclick-dict-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.subclick-dict-pos {
+  font-size: 10.5px;
+  font-weight: 600;
+  font-style: italic;
+  color: #818cf8;
+  min-width: 48px;
+  flex-shrink: 0;
+}
+
+.subclick-dict-terms {
+  color: #cbd5e1;
+}
+
+.subclick-tip-sentence-box {
+  margin-top: 11px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.subclick-tip-sentence-orig {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 3px;
+}
+
+.subclick-tip-sentence-trans {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.subclick-tip-footer {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.subclick-btn-resume {
+  appearance: none;
+  border: 1px solid rgba(99, 102, 241, 0.45);
+  background: rgba(79, 70, 229, 0.25);
+  color: #c7d2fe;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.subclick-btn-resume:hover {
+  background: rgba(79, 70, 229, 0.45);
+  color: #ffffff;
+}

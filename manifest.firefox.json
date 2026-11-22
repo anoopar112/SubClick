@@ -1,0 +1,20 @@
+{
+  "background": {
+    "scripts": [
+      "src/shared/constants.js",
+      "src/shared/translator.js",
+      "src/background.js"
+    ]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{9cfed683-b369-4510-b0ed-bca7fc9c1473}",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "websiteContent"
+        ]
+      }
+    }
+  }
+}
